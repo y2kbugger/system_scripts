@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+#quick way to tether to android phone
+easytether-usb || exit 1
+dhcpcd
+

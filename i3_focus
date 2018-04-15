@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+windowname=$(xdotool getactivewindow getwindowname)
+if [[ $windowname =~ "VIM" ]]; then
+    sleep .1
+    case $1 in
+    'j')
+        xdotool key --clearmodifiers --delay 0 Ctrl+w Ctrl+k
+        ;;
+    'k')
+        xdotool key --clearmodifiers --delay 0 Ctrl+w Ctrl+j
+        ;;
+    'h')
+        xdotool key --clearmodifiers --delay 0 Ctrl+w Ctrl+l
+        ;;
+    'l')
+        xdotool key --clearmodifiers --delay 0 Ctrl+w Ctrl+h
+        ;;
+    esac
+else
+    case $1 in
+    'j')
+        i3-msg focus downn
+        ;;
+    'k')
+        i3-msg focus up
+        ;;
+    'h')
+        i3-msg focus left
+        ;;
+    'l')
+        i3-msg focus right
+        ;;
+    esac
+
+fi

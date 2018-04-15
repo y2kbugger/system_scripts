@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+cd /home/y2k/pics/screenshots
+#sleep .2
+file="Screenshot_$(date +%d%b%Y-%T).png"
+# result="$(maim -u -s -l -c=0.0,0.8,0.0,0.3 "$file")"
+result="$(maim -u -s "$file")"
+if [ ! -f "$file" ]; then
+    notify-send "no screenshot taken"
+    exit 1
+fi
+
+# copy the image to the clipboard
+path=$(realpath "$file")
+xclip -selection clipboard -t image/png -i $path
+
+# show the screencapped image
+feh -F "$file" & pid1=$! 
+
+# here we are using dmenu2, a aur fork with patches
+# we will use it to let you rename the capture
+dmenucmd='dmenu -i -l 3 -h 20 -nb #002b36 -nf #586e75 -sb #073642 -sf #93a1a1 -p ~/pics/screenshots/'
+(sleep .2; xdotool key period p n g Left Left Left Left) &
+newfile=$($dmenucmd <<< "$(ls -t | head)")
+kill "$pid1"
+if [ "$newfile" == "" ]; then
+    result=$(rm -v "$file")
+elif [ "$newfile" == "$file" ]; then
+    notify-send "saved as $file"
+else
+    result=$(mv -v "$file" "$newfile")
+fi
+notify-send -t 1900 "$result"
+path=$(realpath "$newfile")
+cd '/home/y2k'
+
+# add the image to the recent used list
+# this makes it easy to add as attachment/upload somewhere
+sync
+recent="
+import gtk, pygtk
+
+k=gtk.RecentManager()
+k.add_item('file://$path')
+"
+echo "$recent"
+# for some reason this WILL not work with interactive shell
+echo $(python2 -i -c "$recent")&
+sync
+sleep 10
+pkill -f "k=gtk.RecentManager"
+
+
