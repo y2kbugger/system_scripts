@@ -1,4 +1,0 @@
-#!/bin/bash
-#Alternative
-A=`echo $@ | cut -d ' '  -f1`
-pgrep $A > /dev/null || ($@ &)

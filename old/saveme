@@ -1,8 +1,0 @@
-#!/bin/bash
-
-export DISPLAY=:0.0
-
-killall -v unity
-killall -v compiz
-
-unity

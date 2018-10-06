@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo snapshot no-filters path:/ output:\"~/Backups/P182/BeyondCompareSnap/bcsnapshot$(date  +"_%^a%d%^b%Y_%R").bcss\" > ~/bin/snap.txt
-
-echo "Running Full system Snapshot"
-bcompare -silent @snap.txt
-rm ~/bin/snap.txt

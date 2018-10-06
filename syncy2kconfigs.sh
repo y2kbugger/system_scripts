@@ -1,1 +1,1 @@
-/home/y2k/dev/syncy2kconfigs/syncy2kconfigs.sh
+/home/y2k/devel/syncy2kconfigs/syncy2kconfigs.sh
