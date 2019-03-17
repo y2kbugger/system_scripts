@@ -1,1 +1,0 @@
-/home/y2k/.screenlayout/laptop.sh
