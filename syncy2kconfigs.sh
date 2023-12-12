@@ -1,1 +1,0 @@
-/home/y2k/devel/syncy2kconfigs/syncy2kconfigs.sh
